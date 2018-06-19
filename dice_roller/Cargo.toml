@@ -1,0 +1,15 @@
+[package]
+name = "dice_roller"
+version = "0.1.0"
+authors = ["josh <josh@joshuabell.io>"]
+
+[lib]
+name = "dice_roller"
+path = "src/lib.rs"
+
+[[bin]]
+name = "dice"
+path = "src/main.rs"
+
+[dependencies]
+lazy_static = "*"
