@@ -31,13 +31,12 @@ impl Rng {
 
     /// we declare this as unsafe because processor features cannot be safely checked from rust
     /// that is to say, the stdlib impl uses the asm! macro
-    pub unsafe fn feature_check() -> bool {
+    pub unsafe fn feature_check() {
         use std::arch::x86_64::{has_cpuid, __cpuid as cpuid};
         // assume that if cpuid isn't supported, rdrand isn't either
         if !has_cpuid() || cpuid(1).ecx & (1 << 30) == 0 {
             eprintln!("exiting because your processor does not support the rdrand instruction");
             ::std::process::exit(1);
         }
-        true
     }
 }
