@@ -22,8 +22,22 @@ impl Rng {
             }
         }
     }
+
+    /// convenience function that makes it easier to work with ranges
     pub fn range(&self, limit: u64) -> u64 {
         let seed = Rng.next() as f64 / ((::std::u64::MAX) as f64 + 1.0);
         (seed * limit as f64) as u64 + 1
+    }
+
+    /// we declare this as unsafe because processor features cannot be safely checked from rust
+    /// that is to say, the stdlib impl uses the asm! macro
+    pub unsafe fn feature_check() -> bool {
+        use std::arch::x86_64::{has_cpuid, __cpuid as cpuid};
+        // assume that if cpuid isn't supported, rdrand isn't either
+        if !has_cpuid() || cpuid(1).ecx & (1 << 30) == 0 {
+            eprintln!("exiting because your processor does not support the rdrand instruction");
+            ::std::process::exit(1);
+        }
+        true
     }
 }

@@ -1,4 +1,4 @@
-#![feature(platform_intrinsics, nll)]
+#![feature(stdsimd, platform_intrinsics, nll)]
 pub mod rng;
 pub mod dice;
 
