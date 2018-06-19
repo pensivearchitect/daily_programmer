@@ -16,7 +16,7 @@ impl Dice {
     /// Assumes a die roll can be represented as a range from 1 to `self.sides`
     pub fn roll(&self) -> u64 {
         use rng::Rng;
-        Rng.range(self.sides as u64)
+        Rng.range(self.sides)
     }
 }
 

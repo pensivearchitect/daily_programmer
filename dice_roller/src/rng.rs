@@ -24,9 +24,9 @@ impl Rng {
     }
 
     /// convenience function that makes it easier to work with ranges
-    pub fn range(&self, limit: u64) -> u64 {
+    pub fn range<T: Into<u8>>(&self, limit: T) -> u64 {
         let seed = Rng.next() as f64 / ((::std::u64::MAX) as f64 + 1.0);
-        (seed * limit as f64) as u64 + 1
+        (seed * limit.into() as f64) as u64 + 1
     }
 
     /// we declare this as unsafe because processor features cannot be safely checked from rust
